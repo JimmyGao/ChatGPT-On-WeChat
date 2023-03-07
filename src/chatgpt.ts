@@ -35,7 +35,7 @@ export class ChatGPTBot {
   chatgptTriggerKeyword: string = Config.chatgptTriggerKeyword;
 
   // ChatGPT error response
-  chatgptErrorMessage: string = "🤖️：ChatGPT摆烂了，请稍后再试～";
+  chatgptErrorMessage: string = "🤖️：ChatGPT出现问题了，对不起，这个时候我不知道该用什么表情...";
 
   // ChatGPT model configuration
   // please refer to the OpenAI API doc: https://beta.openai.com/docs/api-reference/introduction
