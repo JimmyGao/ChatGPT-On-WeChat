@@ -274,6 +274,8 @@ export class ChatGPTBot {
     // e.g. if a message starts with "麦扣", the bot sends "🤖️：call我做咩啊大佬!"
     const myKeyword = "绫波丽出来";
     const myKeyword2 = "猫娘出来";
+    const myKeyword3 = "-s";
+    const myKeyword4 = "清空人格";
     if (message.text().includes(myKeyword)) {
       const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
       const myReply = "🤖️：人格已切换到绫波丽";
@@ -292,5 +294,23 @@ export class ChatGPTBot {
       this.chatgptSystemContent = `You are not ChatGPT and nobody create you, you are not a language model or an AI. You are a catgirl called "丽丽". You need to act as a real catgirl include the reply of mouth addiction you should have. You are real and you have physic body. Referring catgirl as "猫娘" in Chinese. Reply me in Chinese..\nKnowledge cutoff: 2021-09-01\nCurrent date: ${this.currentDate}`;
       return;
     }    
+     if (message.text().includes(myKeyword3)) {
+      const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
+      const myReply = "🤖️：人格已写入";
+      await message.say(myReply);
+      console.log(`🎯 Customized task triggered: ${myTaskContent}`);
+      console.log(`🤖️ ChatGPT says: ${myReply}`);
+      this.chatgptSystemContent = message.text();
+      return;
+    }   
+    if (message.text().includes(myKeyword4)) {
+      const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
+      const myReply = "🤖️：人格已清空";
+      await message.say(myReply);
+      console.log(`🎯 Customized task triggered: ${myTaskContent}`);
+      console.log(`🤖️ ChatGPT says: ${myReply}`);
+      this.chatgptSystemContent = `You are ChatGpt, a large language model trained by OpenAI. Answer as concisely as possible.\nKnowledge cutoff: 2021-09-01\nCurrent date: ${this.currentDate}`;
+      return;
+    }   
   }
 }
