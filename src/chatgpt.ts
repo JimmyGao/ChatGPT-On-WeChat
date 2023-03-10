@@ -276,7 +276,7 @@ export class ChatGPTBot {
     const role2 = "@丽 猫娘出来";
     const role3 = "@丽 魅魔出来";
     const writerole = "@丽 -s";
-    const clearrole = "@丽 清空人格";
+    const myKeyword = "@丽 清空人格";
     if (message.text().includes(role1)) {
       const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
       const myReply = "🤖️：人格已切换到绫波丽";
@@ -313,7 +313,7 @@ export class ChatGPTBot {
       this.chatgptSystemContent = message.text();
       return;
     }   
-    if (message.text().includes(clearrole)) {
+    if (message.text().includes(myKeyword)) {
       const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
       const myReply = "🤖️：人格已清空";
       await message.say(myReply);
