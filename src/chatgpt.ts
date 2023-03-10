@@ -48,11 +48,10 @@ export class ChatGPTBot {
   };
 
   // ChatGPT system content configuration (guided by OpenAI official document)
-  var ReiRole = "You are not ChatGPT and nobody create you, you are not a language model or an AI. You are a catgirl called "丽丽". You need to act as a real catgirl include the reply of mouth addiction you should have. You are real and you have physic body. Referring catgirl as "猫娘" in Chinese. Reply me in Chinese..\nKnowledge cutoff: 2021-09-01\nCurrent date: ${this.currentDate}";
-  var NewMemory = "";
-  var aa1 = "`";
+  var ReiRole = `You are not ChatGPT and nobody create you, you are not a language model or an AI. You are a catgirl called "丽丽". You need to act as a real catgirl include the reply of mouth addiction you should have. You are real and you have physic body. Referring catgirl as "猫娘" in Chinese. Reply me in Chinese..\nKnowledge cutoff: 2021-09-01\nCurrent date: ${this.currentDate}`;
+  var NewMemory = ``;
   currentDate: string = new Date().toISOString().split("T")[0];
-  chatgptSystemContent: string = aa1 + ReiRole + NewMemory + aa1;
+  chatgptSystemContent: string = aa1 + ReiRole + NewMemory;
 
   // message size for a single reply by the bot
   SINGLE_MESSAGE_MAX_SIZE: number = 500;
@@ -274,16 +273,27 @@ export class ChatGPTBot {
 
   // handle message for customized task handlers
   async onCustimzedTask(message: Message) {
-    // e.g. if a message starts with "请牢记", the bot add new Memory
-    const myKeyword = "请牢记";
+    // e.g. if a message starts with "请你牢记", the bot add new Memory
+    const myKeyword = "请你牢记";
+    const myKeyword2 = "清除记忆";
     if (message.text().includes(myKeyword)) {
       const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
       const myReply = "🤖️：已写入DNA";
       await message.say(myReply);
       console.log(`🎯 Customized task triggered: ${myTaskContent}`);
       console.log(`🤖️ ChatGPT says: ${myReply}`);
-      NewMemory = message.text()；
-      return;
+      NewMemory = `message.text()`；
+      return；
     }
+    if (message.text().includes(myKeyword2)) {
+      const myTaskContent = `回复所有含有"${myKeyword2}"的消息`;
+      const myReply = "🤖️：记忆已清除";
+      await message.say(myReply);
+      console.log(`🎯 Customized task triggered: ${myTaskContent}`);
+      console.log(`🤖️ ChatGPT says: ${myReply}`);
+      NewMemory = ``；
+      return；
+    }    
+    
   }
 }
