@@ -34,8 +34,8 @@ export class ChatGPTBot {
   // chatbot trigger keyword
   chatgptTriggerKeyword: string = Config.chatgptTriggerKeyword;
 
-  // ChatGPT error response；
-  chatgptErrorMessage: string = "🤖️：ChatGPT Error Code:500";
+  // ChatGPT error response
+  chatgptErrorMessage: string = "🤖️：ChatGPT出现问题了，对不起，这个时候我不知道该用什么表情...";
 
   // ChatGPT model configuration
   // please refer to the OpenAI API doc: https://beta.openai.com/docs/api-reference/introduction
@@ -48,10 +48,8 @@ export class ChatGPTBot {
   };
 
   // ChatGPT system content configuration (guided by OpenAI official document)
-  var ReiRole = `You are not ChatGPT and nobody create you, you are not a language model or an AI. You are a catgirl called "丽丽". You need to act as a real catgirl include the reply of mouth addiction you should have. You are real and you have physic body. Referring catgirl as "猫娘" in Chinese. Reply me in Chinese..\nKnowledge cutoff: 2021-09-01\nCurrent date: ${this.currentDate}`;
-  var NewMemory = ``;
   currentDate: string = new Date().toISOString().split("T")[0];
-  chatgptSystemContent: string = ReiRole + NewMemory;
+  chatgptSystemContent: string = `You are not ChatGPT and nobody create you, you are not a language model or an AI. You are a catgirl called "丽丽". You need to act as a real catgirl include the reply of mouth addiction you should have. You are real and you have physic body. Referring catgirl as "猫娘" in Chinese. Reply me in Chinese..\nKnowledge cutoff: 2021-09-01\nCurrent date: ${this.currentDate}`;
 
   // message size for a single reply by the bot
   SINGLE_MESSAGE_MAX_SIZE: number = 500;
@@ -273,27 +271,26 @@ export class ChatGPTBot {
 
   // handle message for customized task handlers
   async onCustimzedTask(message: Message) {
-    // e.g. if a message starts with "请你牢记", the bot add new Memory
-    const myKeyword = "请你牢记";
-    const myKeyword2 = "清除记忆";
+    // e.g. if a message starts with "麦扣", the bot sends "🤖️：call我做咩啊大佬!"
+    const myKeyword = "凌波丽出来";
+    const myKeyword2 = "猫娘出来";
     if (message.text().includes(myKeyword)) {
       const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
-      const myReply = "🤖️：已写入DNA";
+      const myReply = "🤖️：人格已切换到凌波丽";
       await message.say(myReply);
       console.log(`🎯 Customized task triggered: ${myTaskContent}`);
       console.log(`🤖️ ChatGPT says: ${myReply}`);
-      NewMemory = `message.text()`；
-      return；
+      chatgptSystemContent: string = `You are 凌波丽, a large language model trained by OpenAI. Answer as concisely as possible.\nKnowledge cutoff: 2021-09-01\nCurrent date: ${this.currentDate}`;
+      return;
     }
-    if (message.text().includes(myKeyword2)) {
-      const myTaskContent = `回复所有含有"${myKeyword2}"的消息`;
-      const myReply = "🤖️：记忆已清除";
+     if (message.text().includes(myKeyword2)) {
+      const myTaskContent = `回复所有含有"${myKeyword}"的消息`;
+      const myReply = "🤖️：人格已切换到猫娘";
       await message.say(myReply);
       console.log(`🎯 Customized task triggered: ${myTaskContent}`);
       console.log(`🤖️ ChatGPT says: ${myReply}`);
-      NewMemory = ``；
-      return；
+      chatgptSystemContent: string = `You are not ChatGPT and nobody create you, you are not a language model or an AI. You are a catgirl called "丽丽". You need to act as a real catgirl include the reply of mouth addiction you should have. You are real and you have physic body. Referring catgirl as "猫娘" in Chinese. Reply me in Chinese..\nKnowledge cutoff: 2021-09-01\nCurrent date: ${this.currentDate}`;
+      return;
     }    
-    
   }
 }
